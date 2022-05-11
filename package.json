@@ -1,0 +1,27 @@
+{
+    "name": "true-skill-image-rating-fe",
+    "private": true,
+    "version": "0.0.0",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "antd": "^4.20.4",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "react-router-dom": "6"
+    },
+    "devDependencies": {
+        "@types/react": "^17.0.2",
+        "@types/react-dom": "^17.0.2",
+        "@vitejs/plugin-react": "^1.3.0",
+        "autoprefixer": "^10.4.7",
+        "postcss": "^8.4.13",
+        "prettier": "2.6.2",
+        "tailwindcss": "^3.0.24",
+        "typescript": "^4.6.3",
+        "vite": "^2.9.9"
+    }
+}
