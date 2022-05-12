@@ -67,7 +67,7 @@ const TestPage = () => {
 
   if (questionnaire.length === 0) {
     return (
-      <div className='flex justify-center mt-[300px]'>
+      <div className='flex justify-center h-screen items-center'>
         <Spin tip='Loading...'></Spin>
       </div>
     )

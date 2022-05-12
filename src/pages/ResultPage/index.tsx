@@ -3,6 +3,7 @@ import { GetQuestionRes } from '@/models/GetQuestion'
 import { ApiGet, baseUrl, getPicUrl } from '@/utils/request'
 import { Button, Card, Divider, Form, Image, Select, Table, TableColumnsType } from 'antd'
 import { useEffect, useState } from 'react'
+import { DownloadOutlined } from '@ant-design/icons'
 
 const ResultPage = () => {
   const [data, setData] = useState<GetAnalysisRes>([])
@@ -37,7 +38,8 @@ const ResultPage = () => {
   const columns: TableColumnsType<SingleAnalysis> = [
     {
       title: '排名',
-      width: 100,
+      width: 50,
+      fixed: true,
       render: (_, record) => {
         return <span>{data.indexOf(record) + 1}</span>
       }
@@ -47,7 +49,7 @@ const ResultPage = () => {
       width: 250,
       render: (_, record) => {
         return (
-          <div className='flex flex-col space-y-1  align-middle'>
+          <div className='flex flex-col space-y-1'>
             <Image src={getPicUrl(record.img_name)} width={150}></Image>
             <span>{record.img_name}</span>
           </div>
@@ -82,12 +84,15 @@ const ResultPage = () => {
           </section>
           <section>
             <Button className='!bg-green-500 !text-white rounded-lg' onClick={() => handleExport()}>
-              导出到表格
+              <div className='flex space-x-1 items-center justify-center'>
+                <DownloadOutlined />
+                <span>导出为表格</span>
+              </div>
             </Button>
           </section>
         </section>
         <Divider></Divider>
-        <Table columns={columns} dataSource={data}></Table>
+        <Table columns={columns} dataSource={data} scroll={{ x: 800 }}></Table>
       </div>
     </Card>
   )

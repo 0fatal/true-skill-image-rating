@@ -26,8 +26,8 @@ const UserInfoInput: FC<IProps> = ({ onSubmit }) => {
     })
   }
   return (
-    <div className='flex flex-col items-center justify-center pt-[150px]'>
-      <Card className='w-[400px]'>
+    <div className='flex flex-col items-center justify-center h-screen'>
+      <Card className='w-full md:w-[400px]'>
         <header className='flex justify-center'>
           <h1 className='text-[32px]'>填写基本信息</h1>
         </header>
