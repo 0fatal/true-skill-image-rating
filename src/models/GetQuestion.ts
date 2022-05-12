@@ -1,4 +1,4 @@
 export type GetQuestionRes = {
-  ID: string
+  ID: number
   que: string
 }[]
