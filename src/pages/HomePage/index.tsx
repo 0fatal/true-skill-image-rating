@@ -10,9 +10,9 @@ const HomePage = () => {
         <Button shape='round' onClick={() => navigate('/vote')} type='primary' size='large'>
           开始投票
         </Button>
-        <Button shape='round' onClick={() => navigate('/result')} size='large'>
+        {/* <Button shape='round' onClick={() => navigate('/result')} size='large'>
           投票结果分析
-        </Button>
+        </Button> */}
       </div>
     </div>
   )

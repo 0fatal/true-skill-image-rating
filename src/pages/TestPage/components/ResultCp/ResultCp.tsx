@@ -8,11 +8,13 @@ const ResultCp = () => {
       status='success'
       title='提交成功'
       subTitle='感谢您的参与！'
-      extra={[
-        <Button type='primary' key='analysis' onClick={() => navigate('/result')}>
-          结果分析
-        </Button>
-      ]}
+      extra={
+        [
+          // <Button type='primary' key='analysis' onClick={() => navigate('/result')}>
+          //   结果分析
+          // </Button>
+        ]
+      }
     />
   )
 }
