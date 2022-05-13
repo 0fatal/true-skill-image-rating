@@ -68,7 +68,14 @@ const TestPage = () => {
   if (questionnaire.length === 0) {
     return (
       <div className='flex justify-center h-screen items-center'>
-        <Spin tip='Loading...'></Spin>
+        <Spin
+          tip={
+            <div>
+              <p>Loading...</p>
+              <p>（若时间过长，请刷新页面）</p>
+            </div>
+          }
+        ></Spin>
       </div>
     )
   }

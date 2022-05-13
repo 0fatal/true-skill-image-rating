@@ -1,6 +1,8 @@
 import axios, { Axios, AxiosRequestConfig, AxiosResponse } from 'axios'
 
-export const baseUrl = import.meta.env.DEV ? 'http://localhost:8899' : ''
+export const baseUrl = import.meta.env.DEV
+  ? 'https://www.cloudsurvey.club'
+  : 'https://www.cloudsurvey.club'
 
 const req = axios.create({
   baseURL: baseUrl + '/api'

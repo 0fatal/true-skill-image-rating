@@ -38,7 +38,7 @@ const ResultPage = () => {
   const columns: TableColumnsType<SingleAnalysis> = [
     {
       title: '排名',
-      width: 50,
+      width: 58,
       fixed: true,
       render: (_, record) => {
         return <span>{data.indexOf(record) + 1}</span>
@@ -69,7 +69,7 @@ const ResultPage = () => {
   return (
     <Card>
       <div>
-        <section className='flex space-x-[100px] items-center'>
+        <section className='flex justify-between items-center'>
           <section>
             <label>选择问题：</label>
             <Select value={qid} placeholder='请选择' onChange={(v) => setQid(v)}>
@@ -86,7 +86,7 @@ const ResultPage = () => {
             <Button className='!bg-green-500 !text-white rounded-lg' onClick={() => handleExport()}>
               <div className='flex space-x-1 items-center justify-center'>
                 <DownloadOutlined />
-                <span>导出为表格</span>
+                <span>导出</span>
               </div>
             </Button>
           </section>
