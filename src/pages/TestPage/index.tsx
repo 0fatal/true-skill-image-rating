@@ -3,7 +3,7 @@ import { GetQuestionnaireRes, SingleQuestionnaire } from '@/models/GetQuestionna
 import { PostQuestionnaireReq } from '@/models/PostQuestionnaire'
 import { ApiGet, ApiPost } from '@/utils/request'
 import { useReactive } from 'ahooks'
-import { Alert, Button, Image, message, Modal, Progress, Spin } from 'antd'
+import { Button, message, Modal, Progress, Spin } from 'antd'
 import { useEffect, useState } from 'react'
 import ResultCp from './components/ResultCp/ResultCp'
 import SingleTest from './components/SingleTest/SingleTest'

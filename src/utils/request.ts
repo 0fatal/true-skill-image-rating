@@ -1,4 +1,4 @@
-import axios, { Axios, AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 export const baseUrl = import.meta.env.DEV
   ? 'https://www.cloudsurvey.club'

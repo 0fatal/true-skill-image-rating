@@ -1,4 +1,4 @@
-import { PostQuestionnaireReq, PostQuestionnaireRes } from '@/models/PostQuestionnaire'
+import { PostQuestionnaireReq } from '@/models/PostQuestionnaire'
 import { useReactive } from 'ahooks'
 import { Button, Card, Divider, Form, Input, InputNumber, Modal, Select } from 'antd'
 import { FC, useState } from 'react'
