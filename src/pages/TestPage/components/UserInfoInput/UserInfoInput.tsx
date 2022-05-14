@@ -25,6 +25,7 @@ const UserInfoInput: FC<IProps> = ({ onSubmit }) => {
       visible: dialogVisible
     })
   }
+
   return (
     <div className='flex flex-col items-center justify-center h-screen'>
       <Card className='w-full md:w-[400px]'>
@@ -49,9 +50,9 @@ const UserInfoInput: FC<IProps> = ({ onSubmit }) => {
               <Select.Option value='女'>女</Select.Option>
             </Select>
           </Form.Item>
-          <Form.Item label='职业'>
+          <Form.Item label='专业'>
             <Input
-              placeholder='请输入职业'
+              placeholder='请输入专业'
               value={form.job}
               onChange={(v) => (form.job = v.target.value)}
             ></Input>

@@ -1,3 +1,4 @@
+import { SingleQuestion } from '@/models/GetQuestion'
 import { SingleQuestionnaire } from '@/models/GetQuestionnaire'
 import { PostQuestionnaireReq } from '@/models/PostQuestionnaire'
 import { getPicUrl } from '@/utils/request'
@@ -7,10 +8,11 @@ import { FC, useState } from 'react'
 
 interface IProps {
   data: SingleQuestionnaire
+  question: SingleQuestion
   onSubmit: (values: PostQuestionnaireReq.VoteResult) => void
 }
 
-const SingleTest: FC<IProps> = ({ data, onSubmit }) => {
+const SingleTest: FC<IProps> = ({ data, onSubmit, question }) => {
   const handleSubmit = (side: number) => {
     onSubmit({
       qid: data.qid,
@@ -26,11 +28,24 @@ const SingleTest: FC<IProps> = ({ data, onSubmit }) => {
   const isMd = size.width > 768
   const isLg = size.width > 1024
 
+  const qs = question.que.split(question.em)
+
   return (
     <Card>
       <div className='flex flex-col items-center'>
         <section>
-          <h1 className='text-[24px]'>{data.question}</h1>
+          <h1 className='text-[24px]'>
+            {qs[0]}
+            <span
+              className='font-bold text-[28px]'
+              style={{
+                color: question.color
+              }}
+            >
+              {question.em}
+            </span>
+            {qs[1]}
+          </h1>
         </section>
         <Divider />
         <section className='flex flex-col space-y-2 md:space-y-0 lg:flex-row'>

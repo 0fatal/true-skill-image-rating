@@ -1,3 +1,4 @@
+import { GetQuestionRes } from '@/models/GetQuestion'
 import { GetQuestionnaireRes, SingleQuestionnaire } from '@/models/GetQuestionnaire'
 import { PostQuestionnaireReq } from '@/models/PostQuestionnaire'
 import { ApiGet, ApiPost } from '@/utils/request'
@@ -18,11 +19,19 @@ const TestPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [dialogVisible, setDialogVisible] = useState(true)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [splashViewVisible, setSplashViewVisible] = useState(false)
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+  const [question, setQuestion] = useState<GetQuestionRes>([])
 
   const fetchQuestionnaire = async () => {
     const res = await ApiGet<GetQuestionnaireRes>('/questionnaire')
     res?.list.sort((a, b) => a.qid - b.qid)
     setQuestionnaire(res?.list ?? [])
+  }
+
+  const fetchQuestion = async () => {
+    const data = await ApiGet<GetQuestionRes>(`/question`)
+    setQuestion(data ?? [])
   }
 
   const doSubmit = () => {
@@ -41,14 +50,29 @@ const TestPage = () => {
   const handleSubmit = (r: PostQuestionnaireReq.VoteResult) => {
     data.vote_result?.push(r)
     setCurrentIndex(currentIndex + 1)
-    if (currentIndex + 1 < questionnaire.length) return
+    if (currentIndex + 1 < questionnaire.length) {
+      if (questionnaire[currentIndex + 1].qid !== question[currentQuestionIndex].ID) {
+        setCurrentQuestionIndex(currentQuestionIndex + 1)
+        setSplashViewVisible(true)
+      }
+      return
+    }
 
     doSubmit()
   }
 
   useEffect(() => {
     fetchQuestionnaire()
+    fetchQuestion()
   }, [])
+
+  useEffect(() => {
+    if (splashViewVisible === true) {
+      setTimeout(() => {
+        setSplashViewVisible(false)
+      }, 2000)
+    }
+  }, [splashViewVisible])
 
   if (isSubmitted) {
     return <ResultCp />
@@ -58,14 +82,15 @@ const TestPage = () => {
     return (
       <UserInfoInput
         onSubmit={(v) => {
-          data.use_info = v
           message.info('开始投票！')
+          setSplashViewVisible(true)
+          data.use_info = v
         }}
       />
     )
   }
 
-  if (questionnaire.length === 0) {
+  if (questionnaire.length === 0 || question.length === 0) {
     return (
       <div className='flex justify-center h-screen items-center'>
         <Spin
@@ -80,6 +105,27 @@ const TestPage = () => {
     )
   }
 
+  if (splashViewVisible) {
+    const qs = question[currentQuestionIndex].que.split(question[currentQuestionIndex].em)
+    return (
+      <div className='text-[26px] md:text-[32px] flex justify-center h-[84vh] items-center px-[30px] text-center  animate-[translate_2s_ease-in-out_1]'>
+        <div>
+          <div className='md:inline-block'>问题{currentQuestionIndex + 1}：</div>
+          {qs[0]}
+          <span
+            className='font-bold text-[32px] md:text-[48px]'
+            style={{
+              color: question[currentQuestionIndex].color
+            }}
+          >
+            {question[currentQuestionIndex].em}
+          </span>
+          {qs[1]}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className='p-[20px] flex flex-col items-center page-vote'>
       <Progress
@@ -90,7 +136,11 @@ const TestPage = () => {
         percent={Math.ceil((currentIndex / questionnaire.length) * 100)}
       />
       {currentIndex < questionnaire.length ? (
-        <SingleTest data={questionnaire[currentIndex]} onSubmit={handleSubmit}></SingleTest>
+        <SingleTest
+          data={questionnaire[currentIndex]}
+          question={question[currentQuestionIndex]}
+          onSubmit={handleSubmit}
+        ></SingleTest>
       ) : (
         <Button
           shape='round'
