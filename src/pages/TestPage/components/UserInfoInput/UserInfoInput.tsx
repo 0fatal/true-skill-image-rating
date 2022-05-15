@@ -8,10 +8,10 @@ interface IProps {
 }
 
 const UserInfoInput: FC<IProps> = ({ onSubmit }) => {
-  const form = useReactive<PostQuestionnaireReq.UserInfo>({
-    age: 18,
+  const form = useReactive<Partial<PostQuestionnaireReq.UserInfo>>({
+    age: undefined,
     job: '',
-    sex: '男'
+    sex: undefined
   })
   const [dialogVisible, setDialogVisible] = useState(true)
   const handleSubmit = () => {
@@ -20,7 +20,7 @@ const UserInfoInput: FC<IProps> = ({ onSubmit }) => {
       okText: '确定',
       cancelText: '取消',
       onOk() {
-        onSubmit({ ...form })
+        onSubmit({ ...(form as any) })
       },
       visible: dialogVisible
     })
@@ -35,7 +35,7 @@ const UserInfoInput: FC<IProps> = ({ onSubmit }) => {
         <Divider></Divider>
 
         <Form onFinish={handleSubmit}>
-          <Form.Item label='年龄'>
+          <Form.Item label='年龄' rules={[{ required: true, message: '请输入年龄' }]} name='age'>
             <InputNumber
               max={120}
               min={7}
@@ -44,13 +44,13 @@ const UserInfoInput: FC<IProps> = ({ onSubmit }) => {
               onChange={(v) => (form.age = v)}
             ></InputNumber>
           </Form.Item>
-          <Form.Item label='性别'>
-            <Select value={form.sex} onChange={(v) => (form.sex = v)}>
+          <Form.Item label='性别' rules={[{ required: true, message: '请输入性别' }]} name='sex'>
+            <Select value={form.sex} onChange={(v) => (form.sex = v)} placeholder='请选择性别'>
               <Select.Option value='男'>男</Select.Option>
               <Select.Option value='女'>女</Select.Option>
             </Select>
           </Form.Item>
-          <Form.Item label='专业'>
+          <Form.Item label='专业' rules={[{ required: true, message: '请输入专业' }]} name='job'>
             <Input
               placeholder='请输入专业'
               value={form.job}
