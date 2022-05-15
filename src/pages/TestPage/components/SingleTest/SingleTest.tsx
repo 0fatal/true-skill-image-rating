@@ -4,15 +4,16 @@ import { PostQuestionnaireReq } from '@/models/PostQuestionnaire'
 import { getPicUrl } from '@/utils/request'
 import useWindowSize from '@/utils/windowSize'
 import { Button, Card, Divider, Image, Spin } from 'antd'
-import { FC, useState } from 'react'
+import { FC, useLayoutEffect, useState } from 'react'
 
 interface IProps {
   data: SingleQuestionnaire
+  lastData?: SingleQuestionnaire
   question: SingleQuestion
   onSubmit: (values: PostQuestionnaireReq.VoteResult) => void
 }
 
-const SingleTest: FC<IProps> = ({ data, onSubmit, question }) => {
+const SingleTest: FC<IProps> = ({ data, onSubmit, question, lastData }) => {
   const handleSubmit = (side: number) => {
     onSubmit({
       qid: data.qid,
@@ -20,8 +21,8 @@ const SingleTest: FC<IProps> = ({ data, onSubmit, question }) => {
       img_b: data.options[1].pid,
       result: side
     })
-    setIsLoading([true, true])
   }
+
   const [isLoading, setIsLoading] = useState([true, true])
 
   const size = useWindowSize()
@@ -29,6 +30,15 @@ const SingleTest: FC<IProps> = ({ data, onSubmit, question }) => {
   const isLg = size.width > 1024
 
   const qs = question.que.split(question.em)
+
+  useLayoutEffect(() => {
+    if (lastData) {
+      setIsLoading([
+        lastData.options[0].pic !== data.options[0].pic,
+        lastData.options[1].pic !== data.options[1].pic
+      ])
+    }
+  }, [lastData])
 
   return (
     <Card>

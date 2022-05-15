@@ -137,6 +137,7 @@ const TestPage = () => {
       />
       {currentIndex < questionnaire.length ? (
         <SingleTest
+          lastData={currentIndex <= 0 ? undefined : questionnaire[currentIndex - 1]}
           data={questionnaire[currentIndex]}
           question={question[currentQuestionIndex]}
           onSubmit={handleSubmit}
